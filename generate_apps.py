@@ -181,7 +181,8 @@ def create_app(app_name, template_index):
     # Using --platforms=web,linux to reduce file count if possible,
     # but 'flutter create' is standard.
     # To save space/time, we can try to minimize, but standard is safest for "real" apps.
-    cmd = [flutter_bin, 'create', app_name]
+    # Added --offline to speed up generation by avoiding network calls for pub get
+    cmd = [flutter_bin, 'create', '--offline', app_name]
 
     try:
         subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
@@ -201,12 +202,15 @@ def create_app(app_name, template_index):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python generate_apps.py <number_of_apps>")
+        print("Usage: python generate_apps.py <number_of_apps> [start_index]")
         sys.exit(1)
 
     count = int(sys.argv[1])
+    start_index = 0
+    if len(sys.argv) > 2:
+        start_index = int(sys.argv[2])
 
-    for i in range(count):
+    for i in range(start_index, start_index + count):
         app_name = f"flutter_app_{i+1:03d}"
         if not create_app(app_name, i):
             print(f"Failed to create {app_name}")

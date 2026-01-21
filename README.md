@@ -12,16 +12,19 @@ This repository contains a script to generate multiple Flutter applications with
 Run the script to generate apps:
 
 ```bash
-python3 generate_apps.py <number_of_apps>
+python3 generate_apps.py <number_of_apps> [start_index]
 ```
 
 Example:
 
 ```bash
 python3 generate_apps.py 5
+# OR for parallel generation
+python3 generate_apps.py 50 0 &
+python3 generate_apps.py 50 50 &
 ```
 
-This will create 5 folders: `flutter_app_001`, `flutter_app_002`, etc.
+This will create folders: `flutter_app_001`, `flutter_app_002`, etc.
 
 ## Templates
 
@@ -32,6 +35,7 @@ The generator currently supports:
 
 The script cycles through these templates.
 
-## Sample Apps
+## Generated Apps
 
-A zip file `sample_apps.zip` is included containing 3 generated sample apps.
+- `sample_apps.zip`: Contains 3 generated sample apps.
+- `flutter_apps_200.zip`: Contains 200 generated apps (apps 001-200).
