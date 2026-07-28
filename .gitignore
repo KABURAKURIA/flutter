@@ -1,2 +1,5 @@
 tools/
 flutter_apps_200/
+daily_apps/
+__pycache__/
+*.zip
