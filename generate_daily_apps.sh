@@ -1,19 +1,32 @@
 #!/bin/bash
 
-# Remove existing zip if any
-rm -f daily_apps.zip
+TARGET_DIR="daily_apps"
+ZIP_FILE="${TARGET_DIR}.zip"
 
-# Create initial 60 apps
-echo "Creating initial 60 apps..."
-python3 generate_apps.py 60 daily_apps
+# If zip exists, unzip it so we can determine the next index and add to it
+if [ -f "$ZIP_FILE" ]; then
+    echo "Existing archive found. Extracting to continue..."
+    unzip -q "$ZIP_FILE"
+fi
 
-# Create 1 more app, ensuring no repeats
-echo "Creating 1 additional app (daily update)..."
-python3 generate_apps.py 1 daily_apps
+if [ -d "$TARGET_DIR" ] && [ "$(ls -A "$TARGET_DIR" 2>/dev/null | grep -c 'flutter_app_')" -gt 0 ]; then
+    echo "Directory exists and contains apps. Generating 1 new app..."
+    python3 generate_apps.py 1 "$TARGET_DIR"
+else
+    echo "Directory does not exist or is empty. Generating initial 60 apps..."
+    python3 generate_apps.py 60 "$TARGET_DIR"
+fi
 
-# Archive and clean up
-echo "Archiving to daily_apps.zip and cleaning up..."
-zip -rq daily_apps.zip daily_apps
-rm -rf daily_apps
+echo "Deleting old archive..."
+rm -f "$ZIP_FILE"
 
-echo "Done. Apps archived in daily_apps.zip"
+echo "Archiving generated apps..."
+zip -rq "$ZIP_FILE" "$TARGET_DIR"
+
+echo "Validating archive..."
+unzip -t "$ZIP_FILE"
+
+echo "Cleaning up source directory..."
+rm -rf "$TARGET_DIR"
+
+echo "Done."
