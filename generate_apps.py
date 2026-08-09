@@ -447,6 +447,17 @@ class ProductListPage extends StatelessWidget {
 
 def get_next_index(out_dir):
     max_index = 0
+    # Prioritize the global index file to ensure uniqueness across folders
+    global_index_file = '.global_app_index'
+    if os.path.exists(global_index_file):
+        try:
+            with open(global_index_file, 'r') as f:
+                max_index = int(f.read().strip())
+                return max_index
+        except ValueError:
+            pass
+
+    # Fallback to local directory check
     if os.path.exists(out_dir):
         for entry in os.listdir(out_dir):
             if entry.startswith('flutter_app_') and os.path.isdir(os.path.join(out_dir, entry)):
@@ -509,8 +520,10 @@ def main():
     else:
         start_index = get_next_index(out_dir)
 
+    max_idx = start_index
     for i in range(count):
         idx = start_index + i + 1
+        max_idx = idx
         app_name = f"flutter_app_{idx:03d}"
         is_first = (i == 0)
 
@@ -519,6 +532,10 @@ def main():
 
         if not create_app(out_dir, app_name, template_index, is_first):
             print(f"Failed to create {app_name}")
+
+    # Save the global max index
+    with open('.global_app_index', 'w') as f:
+        f.write(str(max_idx))
 
 if __name__ == "__main__":
     main()
