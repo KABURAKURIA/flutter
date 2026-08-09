@@ -3,3 +3,6 @@ flutter_apps_200/
 daily_apps/
 __pycache__/
 *.zip
+daily_apps_*/
+daily_apps_*
+.global_app_index
