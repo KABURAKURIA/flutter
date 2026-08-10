@@ -469,7 +469,7 @@ def get_next_index(out_dir):
                     pass
     return max_index
 
-def create_app(out_dir, app_name, template_index, is_first):
+def create_app(out_dir, app_name, template_index, is_first, app_index):
     print(f"Creating {app_name}...")
 
     flutter_bin = os.path.join(os.getcwd(), 'tools', 'flutter', 'bin', 'flutter')
@@ -498,8 +498,12 @@ def create_app(out_dir, app_name, template_index, is_first):
     template = TEMPLATES[template_index % len(TEMPLATES)]
     main_dart_path = os.path.join(app_path, 'lib', 'main.dart')
 
+    import re
+    # Robustly replace the title string, handling single/double quotes and capturing the original title
+    code_str = re.sub(r"title:\s*['\"](.*?)['\"]", f"title: 'App {app_index} - \\1'", template['code'])
+
     with open(main_dart_path, 'w') as f:
-        f.write(template['code'])
+        f.write(code_str)
 
     print(f"Successfully created {app_name} with template: {template['name']}")
     return True
@@ -530,7 +534,7 @@ def main():
         # Determine the correct template index to avoid repeat when restarting
         template_index = (idx - 1) % len(TEMPLATES)
 
-        if not create_app(out_dir, app_name, template_index, is_first):
+        if not create_app(out_dir, app_name, template_index, is_first, idx):
             print(f"Failed to create {app_name}")
 
     # Save the global max index
