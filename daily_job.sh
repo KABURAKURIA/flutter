@@ -16,4 +16,14 @@ else
     python3 generate_apps.py 60 "$TARGET_DIR"
 fi
 
-echo "Done. Apps created in $TARGET_DIR"
+echo "Archiving generated apps..."
+ZIP_FILE="${TARGET_DIR}.zip"
+zip -rq "$ZIP_FILE" "$TARGET_DIR"
+
+echo "Validating archive..."
+unzip -t "$ZIP_FILE"
+
+echo "Cleaning up source directory..."
+rm -rf "$TARGET_DIR"
+
+echo "Done. Apps created in $TARGET_DIR and archived to $ZIP_FILE"
