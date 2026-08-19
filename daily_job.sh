@@ -18,6 +18,7 @@ fi
 
 echo "Archiving generated apps..."
 ZIP_FILE="${TARGET_DIR}.zip"
+rm -f "$ZIP_FILE"
 zip -rq "$ZIP_FILE" "$TARGET_DIR"
 
 echo "Validating archive..."
