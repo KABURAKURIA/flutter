@@ -7,6 +7,15 @@ TARGET_DIR="daily_apps_$TODAY"
 echo "Creating new folder: $TARGET_DIR"
 mkdir -p "$TARGET_DIR"
 
+LATEST_ZIP=$(ls -t daily_apps_*.zip 2>/dev/null | head -n 1)
+if [ -n "$LATEST_ZIP" ]; then
+    echo "Extracting previous apps from $LATEST_ZIP..."
+    mkdir -p temp_extract
+    unzip -qo "$LATEST_ZIP" -d temp_extract
+    mv temp_extract/*/* "$TARGET_DIR"/ 2>/dev/null || true
+    rm -rf temp_extract
+fi
+
 # Check the global index to determine if we should generate 60 apps or 1 app
 if [ -f ".global_app_index" ]; then
     echo "Global index found. Generating 1 new app for today..."
