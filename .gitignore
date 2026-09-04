@@ -6,3 +6,5 @@ __pycache__/
 daily_apps_*/
 daily_apps_*
 .global_app_index
+*.log
+*.txt
