@@ -155,7 +155,7 @@ class _ColorChangerPageState extends State<ColorChangerPage> {
         child: Center(
           child: Container(
             padding: const EdgeInsets.all(20),
-            color: Colors.white.withOpacity(0.8),
+            color: Colors.white.withValues(alpha: 0.8),
             child: const Text(
               'Tap anywhere!',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
