@@ -1,15 +1,10 @@
-# 📱 Automated Flutter Application Generator & Productivity Suite
-
-[![Flutter](https://img.shields.io/badge/Flutter-Cross--Platform-02569B.svg?logo=flutter&logoColor=white)](https://flutter.dev/)
-[![Dart](https://img.shields.io/badge/Dart-Language-0175C2.svg?logo=dart&logoColor=white)](https://dart.dev/)
-[![Python](https://img.shields.io/badge/Python-Automation-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Automated Flutter Application Generator & Productivity Suite
 
 An automated mobile development automation engine that scaffolds, tests, and builds production-grade cross-platform Flutter applications on demand with integrated Pomodoro productivity mechanics and scheduled cron pipelines.
 
 ---
 
-## ⚡ Key Capabilities
+## Key Capabilities
 
 - **Automated App Generation (`generate_apps.py`)**: Scriptable creation of responsive Flutter widgets, stateful containers, Material 3 theming, and multi-screen navigation hierarchies.
 - **Productivity & Pomodoro Architecture**: Includes the `Atunafsi` productivity app template featuring interval timers, focus tracking, and local state persistence.
@@ -17,7 +12,7 @@ An automated mobile development automation engine that scaffolds, tests, and bui
 
 ---
 
-## 🚀 Quickstart
+## Quickstart
 
 ```bash
 # Clone the repository
@@ -33,6 +28,6 @@ python build_atunafsi_pomodoro.py
 
 ---
 
-## 📄 License
+## License
 
 MIT License. See [LICENSE](LICENSE) for details.
